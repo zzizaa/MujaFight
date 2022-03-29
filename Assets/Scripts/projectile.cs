@@ -8,7 +8,7 @@ public class projectile : MonoBehaviour
     private GameObject _firePoint;
     private GameObject _fireDirection;
     public float projectileSpeed;
-    private Vector2 _directionVector;
+    public Vector2 _directionVector;
     private Rigidbody2D _rb;
     public float speedRotation;
 

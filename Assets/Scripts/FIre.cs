@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FIre : MonoBehaviour
+public class Fire : MonoBehaviour
 {
+    public GameObject firePoint;
+    public GameObject fireDirection;
     public GameObject projectile;
-    public Transform firePoint;
     public float projectileSpeed;
     public firePointMovement FirePointMovement;
     private bool _canFire = true;
+    private Vector2 _recoil;
+    public Movement movement;
+    public float fireRatio;
 
     private void Update()
     {
@@ -22,7 +26,10 @@ public class FIre : MonoBehaviour
     {
         if (_canFire)
         {
-            Instantiate(projectile, new Vector3(firePoint.position.x, firePoint.position.y, 0f), Quaternion.identity);
+            Instantiate(projectile, new Vector3(firePoint.transform.position.x, firePoint.transform.position.y, 0f), Quaternion.identity);
+            _recoil = new Vector2(fireDirection.transform.position.x - firePoint.transform.position.x,
+                fireDirection.transform.position.y - firePoint.transform.position.y);
+            movement.Recoil(_recoil);
             StartCooldown();
         }
     }
@@ -30,7 +37,7 @@ public class FIre : MonoBehaviour
     void StartCooldown()
     {
         _canFire = false;
-        Invoke("FinishCooldown", 2f);
+        Invoke("FinishCooldown", fireRatio);
     }
 
     void FinishCooldown()

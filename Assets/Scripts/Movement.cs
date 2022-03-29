@@ -26,6 +26,7 @@ public class Movement : MonoBehaviour
     public float jumpForce;
     public float checkRadius;
     public LayerMask whatIsGround;
+    public float recoilForce;
 
 
     private void Start()
@@ -44,7 +45,6 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        print(_numJump);
         _isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
         if (_isGrounded && !_isJumping) _numJump = 0;
     }
@@ -80,5 +80,10 @@ public class Movement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(feetPos.position, checkRadius);
+    }
+
+    public void Recoil(Vector2 recoilDirection)
+    {
+        _rb.AddForce(-recoilDirection * recoilForce, ForceMode2D.Impulse);
     }
 }
