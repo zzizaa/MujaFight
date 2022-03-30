@@ -84,6 +84,7 @@ public class Movement : MonoBehaviour
 
     public void Recoil(Vector2 recoilDirection)
     {
+        _rb.velocity = new Vector2(0, 0);
         _rb.AddForce(-recoilDirection * recoilForce, ForceMode2D.Impulse);
     }
 }
